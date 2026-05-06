@@ -1,0 +1,62 @@
+@startuml
+title Abstract Factory Pattern
+
+interface PaymentGateway1 {
+  +processPayment(double amount)
+}
+
+interface Invoice1 {
+  +generateInvoice()
+}
+
+class RazorpayGateway1
+class PayUGateway1
+class PayPalGateway
+class StripeGateway
+class GSTInvoice1
+class USInvoice
+
+interface RegionFactory {
+  +createPaymentGateway(String gatewayType) PaymentGateway1
+  +createInvoice() Invoice1
+}
+
+class IndiaFactory
+class USFactory
+
+class CheckoutService1 {
+  -PaymentGateway1 paymentGateway
+  -Invoice1 invoice
+  -String gatewayType
+  +CheckoutService1(RegionFactory factory, String gatewayType)
+  +completeOrder(double amount)
+}
+
+class CheckoutDemo {
+  +main(String[] args)
+}
+
+PaymentGateway1 <|.. RazorpayGateway1
+PaymentGateway1 <|.. PayUGateway1
+PaymentGateway1 <|.. PayPalGateway
+PaymentGateway1 <|.. StripeGateway
+
+Invoice1 <|.. GSTInvoice1
+Invoice1 <|.. USInvoice
+
+RegionFactory <|.. IndiaFactory
+RegionFactory <|.. USFactory
+
+IndiaFactory ..> RazorpayGateway1 : creates
+IndiaFactory ..> PayUGateway1 : creates
+IndiaFactory ..> GSTInvoice1 : creates
+
+USFactory ..> PayPalGateway : creates
+USFactory ..> StripeGateway : creates
+USFactory ..> USInvoice : creates
+
+CheckoutService1 --> RegionFactory : uses
+CheckoutService1 --> PaymentGateway1 : owns
+CheckoutService1 --> Invoice1 : owns
+CheckoutDemo --> CheckoutService1 : creates
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+title Facade Package - Without Facade Demo
+
+class PaymentService2 {
+  +makePayment(String accountId, double amount)
+}
+
+class SeatReservationService2 {
+  +reserveSeat(String movieId, String seatNumber)
+}
+
+class NotificationService2 {
+  +sendBookingConfirmation(String userEmail)
+}
+
+class LoyaltyPointsService2 {
+  +addPoints(String accountId, int points)
+}
+
+class TicketService2 {
+  +generateTicket(String movieId, String seatNumber)
+}
+
+class FacadeDemo {
+  +main(String[] args)
+}
+
+FacadeDemo --> PaymentService2
+FacadeDemo --> SeatReservationService2
+FacadeDemo --> NotificationService2
+FacadeDemo --> LoyaltyPointsService2
+FacadeDemo --> TicketService2
+
+note bottom of FacadeDemo
+  Client talks directly to every subsystem.
+  A facade would hide these calls behind
+  one simple booking API.
+end note
+@enduml
