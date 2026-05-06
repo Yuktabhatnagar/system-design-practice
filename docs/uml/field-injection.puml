@@ -1,0 +1,40 @@
+@startuml
+title Field Injection
+
+interface UserRepository4 {
+  +saveUser()
+}
+
+class MySQLRepository4 {
+  +saveUser()
+}
+
+class MongoRepository4 {
+  +saveUser()
+}
+
+class UserService4 {
+  -UserRepository4 repo
+  +save()
+}
+
+class FieldInjectionConfig
+
+class FieldInjection {
+  +main(String[] args)
+}
+
+UserRepository4 <|.. MySQLRepository4
+UserRepository4 <|.. MongoRepository4
+UserService4 --> UserRepository4 : @Autowired field
+FieldInjection --> FieldInjectionConfig : creates Spring context
+FieldInjection --> UserService4 : gets bean
+
+note right of MySQLRepository4
+  Active when profile = mysql
+end note
+
+note right of MongoRepository4
+  Active when profile = mongo
+end note
+@enduml

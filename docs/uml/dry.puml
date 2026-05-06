@@ -1,0 +1,25 @@
+@startuml
+title DRY Principle
+
+class WithoutDRY {
+  +main(String[] args)
+}
+
+class WithDRY {
+  +main(String[] args)
+}
+
+class AreaCalculator {
+  +calculateArea(int length, int width) int
+}
+
+WithDRY --> AreaCalculator : reuses logic
+
+note left of WithoutDRY
+  Area calculation is duplicated.
+end note
+
+note right of WithDRY
+  Shared calculation lives in one place.
+end note
+@enduml

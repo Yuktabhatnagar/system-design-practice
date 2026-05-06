@@ -1,0 +1,38 @@
+@startuml
+title Strategy Pattern
+
+interface MatchingStrategy {
+  +match(String riderLocation)
+}
+
+class NearestDriverStrategy {
+  +match(String riderLocation)
+}
+
+class AirportQueueStrategy {
+  +match(String riderLocation)
+}
+
+class SurgePriorityStrategy {
+  +match(String riderLocation)
+}
+
+class RideMatchingService2 {
+  -MatchingStrategy strategy
+  +RideMatchingService2(MatchingStrategy strategy)
+  +setStrategy(MatchingStrategy strategy)
+  +matchRider(String location)
+}
+
+class StrategyPattern {
+  +main(String[] args)
+}
+
+MatchingStrategy <|.. NearestDriverStrategy
+MatchingStrategy <|.. AirportQueueStrategy
+MatchingStrategy <|.. SurgePriorityStrategy
+
+RideMatchingService2 --> MatchingStrategy : delegates matching
+StrategyPattern --> RideMatchingService2 : configures
+StrategyPattern ..> MatchingStrategy : chooses strategy
+@enduml
