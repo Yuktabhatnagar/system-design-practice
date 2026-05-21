@@ -33,7 +33,7 @@ interface Command {
 
 // Concrete commands for Light ON and OFF
 class LightOnCommand implements Command {
-    private LightCommand light;
+    private final LightCommand light;
 
     public LightOnCommand(LightCommand light) {
         this.light = light;
@@ -49,7 +49,7 @@ class LightOnCommand implements Command {
 }
 
 class LightOffCommand implements Command {
-    private LightCommand light;
+    private final LightCommand light;
 
     public LightOffCommand(LightCommand light) {
         this.light = light;
@@ -66,7 +66,7 @@ class LightOffCommand implements Command {
 
 // Concrete commands for AC ON and OFF
 class AConCommand implements Command {
-    private ACCommand ac;
+    private final ACCommand ac;
 
     public AConCommand(ACCommand ac) {
         this.ac = ac;
@@ -82,7 +82,7 @@ class AConCommand implements Command {
 }
 
 class ACOffCommand implements Command {
-    private ACCommand ac;
+    private final ACCommand ac;
 
     public ACOffCommand(ACCommand ac) {
         this.ac = ac;
@@ -99,8 +99,8 @@ class ACOffCommand implements Command {
 
 // ========== Remote control class (Invoker) ==========
 class RemoteControl {
-    private Command[] buttons = new Command[4];  // Assigning 4 slots for commands
-    private Stack<Command> commandHistory = new Stack<>();
+    private final Command[] buttons = new Command[4];  // Assigning 4 slots for commands
+    private final Stack<Command> commandHistory = new Stack<>();
 
     // Assign command to slot
     public void setCommand(int slot, Command command) {
