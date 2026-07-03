@@ -1,4 +1,4 @@
-package com.yukta.systemdesign.lld.high_design_pattterns.dto_pattern;
+package com.yukta.systemdesign.lld.high_design_patterns.dto_pattern;
 
 public class DtoPatternDemo {
 

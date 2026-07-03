@@ -1,4 +1,4 @@
-package com.yukta.systemdesign.lld.high_design_pattterns.dependency_injection_pattern;
+package com.yukta.systemdesign.lld.high_design_patterns.dependency_injection_pattern;
 
 public class DependencyInjectionPatternDemo {
 
