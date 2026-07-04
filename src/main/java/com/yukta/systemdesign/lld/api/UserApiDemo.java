@@ -86,7 +86,9 @@ class UserApiController {
     }
 
     ApiResponse<UserResponse> getUser(int id) {
-        return service.findUser(id).map(ApiResponse::ok).orElseGet(() -> ApiResponse.notFound("User not found"));
+        return service.findUser(id)
+                .map(ApiResponse::ok)
+                .orElseGet(() -> ApiResponse.notFound("User not found"));
     }
 }
 
@@ -113,6 +115,23 @@ class UserApiService {
 
 interface UserApiRepository {
     UserApiEntity save(String name, String email);
+
     Optional<UserApiEntity> findById(int id);
 }
 
+class InMemoryUserApiRepository implements UserApiRepository {
+    private final Map<Integer, UserApiEntity> users = new HashMap<>();
+    private int nextId = 1;
+
+    @Override
+    public UserApiEntity save(String name, String email) {
+        UserApiEntity user = new UserApiEntity(nextId++, name, email);
+        users.put(user.id(), user);
+        return user;
+    }
+
+    @Override
+    public Optional<UserApiEntity> findById(int id) {
+        return Optional.ofNullable(users.get(id));
+    }
+}
