@@ -25,23 +25,6 @@ public class UserApiDemo {
 record CreateUserRequest(String name, String email) {
 }
 
-class InMemoryUserApiRepository implements UserApiRepository {
-    private final Map<Integer, UserApiEntity> users = new HashMap<>();
-    private int nextId = 1;
-
-    @Override
-    public UserApiEntity save(String name, String email) {
-        UserApiEntity user = new UserApiEntity(nextId++, name, email);
-        users.put(user.id(), user);
-        return user;
-    }
-
-    @Override
-    public Optional<UserApiEntity> findById(int id) {
-        return Optional.ofNullable(users.get(id));
-    }
-}
-
 record UserResponse(int id, String name, String email) {
 }
 
