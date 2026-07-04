@@ -1,4 +1,4 @@
-package com.yukta.systemdesign.lld.high_design_pattterns.repository_pattern;
+package com.yukta.systemdesign.lld.high_design_patterns.repository_pattern;
 
 import java.util.HashMap;
 import java.util.Map;

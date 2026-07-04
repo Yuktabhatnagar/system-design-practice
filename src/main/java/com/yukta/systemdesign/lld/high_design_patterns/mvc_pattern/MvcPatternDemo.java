@@ -1,4 +1,4 @@
-package com.yukta.systemdesign.lld.high_design_pattterns.mvc_pattern;
+package com.yukta.systemdesign.lld.high_design_patterns.mvc_pattern;
 
 public class MvcPatternDemo {
 
