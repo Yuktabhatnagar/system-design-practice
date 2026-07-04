@@ -1,4 +1,4 @@
-package com.yukta.systemdesign.lld.high_design_pattterns.service_layer_pattern;
+package com.yukta.systemdesign.lld.high_design_patterns.service_layer_pattern;
 
 public class ServiceLayerPatternDemo {
 
