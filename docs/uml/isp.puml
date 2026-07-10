@@ -1,0 +1,43 @@
+@startuml
+title Interface Segregation Principle
+
+interface UberUser {
+  +bookRide(String destination)
+  +acceptRide(String rideId)
+  +blockUser(String userId)
+}
+
+class RiderWithoutIsp
+
+interface RiderActions {
+  +bookRide(String destination)
+}
+
+interface DriverActions {
+  +acceptRide(String rideId)
+}
+
+interface AdminActions {
+  +blockUser(String userId)
+}
+
+class Rider
+class Driver
+class Admin
+class Uber {
+  +main(String[] args)
+}
+
+UberUser <|.. RiderWithoutIsp
+RiderActions <|.. Rider
+DriverActions <|.. Driver
+AdminActions <|.. Admin
+
+Uber --> RiderActions
+Uber --> DriverActions
+Uber --> AdminActions
+
+note right of RiderWithoutIsp
+  Fat interface forces unsupported methods.
+end note
+@enduml

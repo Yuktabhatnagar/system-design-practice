@@ -1,0 +1,29 @@
+@startuml
+title Dependency Inversion Principle
+
+interface RecommendationStrategy {
+  +getRecommendations()
+}
+
+class RecentlyAdded
+class TrendingNow
+class GenreBased
+
+class RecommendationEngine {
+  -RecommendationStrategy strategy
+  +RecommendationEngine(RecommendationStrategy strategy)
+  +recommend()
+}
+
+class DipDemo {
+  +main(String[] args)
+}
+
+RecommendationStrategy <|.. RecentlyAdded
+RecommendationStrategy <|.. TrendingNow
+RecommendationStrategy <|.. GenreBased
+
+RecommendationEngine --> RecommendationStrategy : depends on abstraction
+DipDemo --> RecommendationEngine
+DipDemo ..> TrendingNow
+@enduml

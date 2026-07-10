@@ -1,0 +1,44 @@
+@startuml
+title Observer Pattern
+
+interface Subscriber {
+  +update(String videoTitle)
+}
+
+class EmailSubscriber {
+  -String email
+  +update(String videoTitle)
+}
+
+class MobileAppSubscriber {
+  -String username
+  +update(String videoTitle)
+}
+
+interface Channel {
+  +subscribe(Subscriber subscriber)
+  +unsubscribe(Subscriber subscriber)
+  +notifySubscribers(String videoTitle)
+}
+
+class YouTubeChannel {
+  -List<Subscriber> subscribers
+  -String channelName
+  +subscribe(Subscriber subscriber)
+  +unsubscribe(Subscriber subscriber)
+  +notifySubscribers(String videoTitle)
+  +uploadVideo(String videoTitle)
+}
+
+class ObserverPattern {
+  +main(String[] args)
+}
+
+Subscriber <|.. EmailSubscriber
+Subscriber <|.. MobileAppSubscriber
+Channel <|.. YouTubeChannel
+
+YouTubeChannel o--> Subscriber : stores subscribers
+ObserverPattern --> YouTubeChannel : creates subject
+ObserverPattern --> Subscriber : registers observers
+@enduml

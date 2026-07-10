@@ -1,0 +1,40 @@
+@startuml
+title Factory Pattern
+
+interface Vehicle {
+  +drive()
+}
+
+class Car {
+  +drive()
+}
+
+class Bike {
+  +drive()
+}
+
+class Truck {
+  +drive()
+}
+
+class VehicleFactory {
+  -Map<String, Supplier<Vehicle>> map
+  +register(String type, Supplier<Vehicle> supplier)
+  +getVehicle(String type) Vehicle
+}
+
+class FactoryDemo {
+  +main(String[] args)
+}
+
+Vehicle <|.. Car
+Vehicle <|.. Bike
+Vehicle <|.. Truck
+
+VehicleFactory ..> Vehicle : creates
+Car ..> VehicleFactory : registers
+Bike ..> VehicleFactory : registers
+Truck ..> VehicleFactory : registers
+FactoryDemo --> VehicleFactory : requests vehicle
+FactoryDemo --> Vehicle : uses
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+title Liskov Substitution Principle
+
+interface Vehicle {
+  +accelerate()
+}
+
+interface EngineVehicle {
+  +turnOnEngine()
+}
+
+class MotorCycle1 {
+  -boolean engineOn
+  -int speed
+  +turnOnEngine()
+  +accelerate()
+}
+
+class Bicycle1 {
+  -int speed
+  +accelerate()
+}
+
+class LiskovSubstitutionPrinciple {
+  +main(String[] args)
+}
+
+Vehicle <|-- EngineVehicle
+EngineVehicle <|.. MotorCycle1
+Vehicle <|.. Bicycle1
+
+LiskovSubstitutionPrinciple --> Vehicle : uses bicycle
+LiskovSubstitutionPrinciple --> EngineVehicle : uses motorcycle
+
+note right of Bicycle1
+  Bicycle only depends on Vehicle.
+  It does not fake engine behavior.
+end note
+@enduml
