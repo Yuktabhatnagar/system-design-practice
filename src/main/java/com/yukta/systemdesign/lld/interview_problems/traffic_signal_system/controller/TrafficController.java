@@ -1,6 +1,14 @@
 package com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.controller;
 
-
+/*
+3. TrafficController Use Cases:
+Vehicle Count Update Use Case:
+updateVehicleCount() → TrafficService.updateVehicleCount() → TrafficRepository.updateCount() → Count updated → Trigger dynamic timing adjustment if enabled
+Vehicle Count Query Use Case:
+getVehicleCount() → TrafficService.getVehicleCount() → TrafficRepository.getCount() → Count returned
+Dynamic Timing Trigger Use Case:
+updateVehicleCount() → TrafficService.updateVehicleCount() → TrafficRepository.updateCount() → TimingService.adjustTimingBasedOnTraffic() → TimingRepository.updateSignalTiming() → Dynamic timing applied
+*/
 import com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.domain.Direction;
 import com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.service.TrafficService;
 

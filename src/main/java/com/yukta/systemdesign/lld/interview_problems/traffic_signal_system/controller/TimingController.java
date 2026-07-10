@@ -1,6 +1,15 @@
 package com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.controller;
 
 
+/*
+4. TimingController Use Cases:
+Signal Timing Configuration Use Case:
+setSignalTiming() → TimingService.setSignalTiming() → TimingRepository.updateSignalTiming() → Signal timing updated for direction
+Dynamic Timing Adjustment Use Case:
+adjustTimingBasedOnTraffic() → TimingService.adjustTimingBasedOnTraffic() → Calculate optimal duration → Update timing → Apply to next cycle
+Dynamic Timing Enable/Disable Use Case:
+enableDynamicTiming() → TimingService.enableDynamicTiming() → TimingRepository.updateSignalTiming() → Dynamic timing enabled/disabled for direction
+*/
 import com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.domain.Direction;
 import com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.domain.SignalTiming;
 import com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.service.TimingService;

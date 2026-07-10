@@ -1,6 +1,11 @@
 package com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.controller;
 
-
+/*2. EmergencyController Use Cases:
+Emergency Request Use Case:
+requestEmergency() → EmergencyService.requestEmergency() → IntersectionService.pauseCycle() → IntersectionService.emergencySetAllSignalsToRed() → Emergency direction GREEN → Timer for resume
+Emergency End Use Case:
+endEmergency() → EmergencyService.endEmergency() → IntersectionService.emergencySetAllSignalsToRed() → IntersectionService.resumeCycle() → Cycle resumes from paused state
+*/
 import com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.domain.Direction;
 import com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.domain.EmergencyRequest;
 import com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.service.EmergencyService;

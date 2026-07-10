@@ -1,6 +1,18 @@
 package com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.controller;
 
-
+/*
+1. IntersectionController Use Cases:
+Intersection Creation Use Case:
+createIntersection() → IntersectionService.createIntersection() → IntersectionRepository.save() → Intersection created with 4 traffic lights and default timings
+Intersection Status Use Case:
+getIntersection() → IntersectionService.getIntersection() → IntersectionRepository.findById() → Intersection with all traffic light states and timings returned
+Automatic Cycle Use Case:
+startCycle() → IntersectionService.startAutomaticCycle() → Timer schedules cycle with configurable durations → Automatic cycling begins
+Cycle Pause/Resume Use Case:
+EmergencyService.requestEmergency() → IntersectionService.pauseCycle() → Cycle paused at current phase → EmergencyService.endEmergency() → IntersectionService.resumeCycle() → Cycle resumes from paused phase
+Emergency Request Use Case:
+requestEmergency() → EmergencyService.requestEmergency() → IntersectionService.pauseCycle() → IntersectionService.emergencySetAllSignalsToRed() → Emergency direction GREEN → Timer for resume
+*/
 import com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.domain.Direction;
 import com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.domain.Intersection;
 import com.yukta.systemdesign.lld.interview_problems.traffic_signal_system.domain.IntersectionCycle;
