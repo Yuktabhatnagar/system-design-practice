@@ -1,0 +1,8 @@
+[INFO] 2026-07-06T07:03:49.280973800Z - This message goes to both console and file
+[ERROR] 2026-07-06T07:03:49.293862Z - This error also goes to both destinations
+[INFO] 2026-07-06T07:05:08.151320Z - This message goes to both console and file
+[ERROR] 2026-07-06T07:05:08.168333800Z - This error also goes to both destinations
+[INFO] 2026-07-06T07:05:54.107735100Z - This message goes to both console and file
+[ERROR] 2026-07-06T07:05:54.107735100Z - This error also goes to both destinations
+[INFO] 2026-07-06T07:06:20.504435100Z - This message goes to both console and file
+[ERROR] 2026-07-06T07:06:20.505436200Z - This error also goes to both destinations
