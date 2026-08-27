@@ -1,0 +1,166 @@
+@startuml
+title Parking Lot System - SDE-2 Style UML
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+left to right direction
+
+package "domain" {
+
+interface Vehicle {
+  +getVehicleNumber()
+  +getVehicleType()
+}
+
+class Bike
+class Car
+class Truck
+Vehicle <|.. Bike
+Vehicle <|.. Car
+Vehicle <|.. Truck
+
+class ParkingLot {
+  -parkingFloors : List<ParkingFloor>
+  -entryGates : List<EntryGate>
+  -exitGates : List<ExitGate>
+  -ticketService : TicketService
+  +parkVehicle(vehicle) : Ticket
+  +releaseSlot(slot)
+  +findAvailableSlot(vehicle)
+}
+
+class ParkingFloor {
+  -floorNumber : int
+  -parkingSlots : List<ParkingSlot>
+  -parkingStrategy : ParkingStrategy
+  +allocateSlot(vehicle)
+  +releaseSlot(slot)
+  +findAvailableSlot(vehicle)
+}
+
+class ParkingSlot {
+  -slotId : UUID
+  -supportedType : VehicleType
+  -parkedVehicle : Vehicle
+  -status : SlotStatus
+  -distanceFromGate : int
+  +parkVehicle(vehicle)
+  +releaseVehicle()
+  +isAvailable()
+  +canPark(vehicle)
+}
+
+class EntryGate {
+  -parkingLot : ParkingLot
+  +enterVehicle(vehicle) : Ticket
+}
+
+class ExitGate {
+  -feeStrategy : FeeStrategy
+  -paymentService : PaymentService
+  +processExit(ticket) : Receipt
+}
+
+class Ticket {
+  -ticketId : UUID
+  -vehicle : Vehicle
+  -parkingSlot : ParkingSlot
+  -entryTime
+  -exitTime
+}
+
+class Receipt {
+  -receiptId : UUID
+  -amount : double
+  -status
+}
+}
+
+package "service" {
+class TicketService {
+  +generateTicket(vehicle,slot)
+  +closeTicket(ticket)
+}
+
+class PaymentService {
+  -paymentStrategy : PaymentStrategy
+  +makePayment(ticket,amount) : Receipt
+}
+}
+
+package "strategy.parking" {
+interface ParkingStrategy {
+  +findSlot(slots,vehicle)
+}
+class FirstAvailableStrategy
+class NearestStrategy
+class RandomStrategy
+
+ParkingStrategy <|.. FirstAvailableStrategy
+ParkingStrategy <|.. NearestStrategy
+ParkingStrategy <|.. RandomStrategy
+}
+
+package "strategy.fee" {
+interface FeeStrategy {
+  +calculateFee(ticket)
+}
+class HourlyFeeStrategy
+class DailyFeeStrategy
+class WeekendFeeStrategy
+class VIPFeeStrategy
+
+FeeStrategy <|.. HourlyFeeStrategy
+FeeStrategy <|.. DailyFeeStrategy
+FeeStrategy <|.. WeekendFeeStrategy
+FeeStrategy <|.. VIPFeeStrategy
+}
+
+package "strategy.payment" {
+interface PaymentStrategy {
+  +pay(ticket,amount)
+}
+class UPIPayment
+class CardPayment
+class CashPayment
+
+PaymentStrategy <|.. UPIPayment
+PaymentStrategy <|.. CardPayment
+PaymentStrategy <|.. CashPayment
+}
+
+ParkingLot *-- "1..*" ParkingFloor : contains
+ParkingFloor *-- "1..*" ParkingSlot : contains
+
+ParkingLot o-- "0..*" EntryGate
+ParkingLot o-- "0..*" ExitGate
+
+ParkingSlot --> "0..1" Vehicle : parked
+Ticket --> Vehicle
+Ticket --> ParkingSlot
+Receipt --> Ticket
+
+ParkingLot ..> TicketService : delegates
+ParkingFloor ..> ParkingStrategy : uses
+ExitGate ..> FeeStrategy : calculates fee
+ExitGate ..> PaymentService : requests payment
+PaymentService ..> PaymentStrategy : delegates
+
+note right of ParkingFloor
+Strategy Pattern
+Slot allocation is pluggable.
+end note
+
+note right of PaymentService
+Service Layer
+Orchestrates payment workflow.
+end note
+
+note bottom of ExitGate
+Exit Flow:
+1. Calculate Fee
+2. Make Payment
+3. Release Slot
+4. Generate Receipt
+end note
+
+@enduml
